@@ -39,6 +39,9 @@ export default [
       "eol-last": ["error", "always"],
       // Enforce spaces inside curly braces
       "object-curly-spacing": ["error", "always"],
+      'max-len': ['error', { code: 125 }],
+      'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'always' }],
+
 
       //  Code quality
       "no-unused-vars": "warn",

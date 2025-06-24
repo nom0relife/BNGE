@@ -1,20 +1,22 @@
 import React, { useState, useEffect, FC } from 'react';
-import fetchMovie from '@/app/features/movies/components/fetchMovie';
-import { Movie } from '@/app/features/movies/components/fetchMovie';
-import MovieCard from '@/app/features/movies/components/movieCard';
+import fetchMovie from '@/app/movies/components/fetchMovie';
+import { Movie } from '@/app/movies/components/fetchMovie';
+import MovieCard from '@/app/movies/components/movieCard';
 
 const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
 
   const filteredMovies = movies.filter((movie: Movie) => {
-    if (movie.popularity > 1 && movie.backdrop_path && movie.original_language === 'en') {
+    if (movie.popularity > 1 && movie.original_language === 'en') {
       return movie;
     }
   });
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
       {filteredMovies.map((movie: Movie) => (
-        <MovieCard movie={movie} key={movie.id}/>
+        <React.Fragment key={movie.id}>
+          <MovieCard movie={movie} key={movie.id} />
+        </React.Fragment>
       ))}
     </div>
   );

@@ -10,6 +10,7 @@ export interface Movie {
   vote_count: number;
   popularity: number;
   original_language: string;
+  overview: string;
 }
 
 async function fetchMovie(query: string): Promise<Movie[]> {

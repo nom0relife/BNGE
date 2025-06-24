@@ -19,11 +19,11 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
         />
         <h1 className="text-2xl font-bold">{SITE_TITLE}</h1>
       </div>
-      <SearchBar onSearch={onSearch}/>
+      <SearchBar onSearch={onSearch} />
       <nav>
         <ul className="flex space-x-4">
           <li>
-            <Link href="/public">Home</Link>
+            <Link href="/">Home</Link>
           </li>
           <li>
             <Link href="/public">Favorites</Link>

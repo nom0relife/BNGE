@@ -1,11 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
+import '@lib/fontawesome'; // Import FontAwesome configuration
 import { SITE_TITLE } from '@/app/common/constants';
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
-  description: 'A movie search application using TMDB API',
+  description: 'A Next.js application for movie details',
 };
 
 export default function RootLayout({
