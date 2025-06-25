@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
         />
         <h1 className="text-2xl font-bold">{SITE_TITLE}</h1>
       </div>
-      <SearchBar onSearch={onSearch} />
+      {onSearch && <SearchBar onSearch={onSearch} />}
       <nav>
         <ul className="flex space-x-4">
           <li>
@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
 };
 
 type HeaderProps = {
-    onSearch: (q: string) => void;
+    onSearch?: (query: string) => void;
 };
 
 export default Header;

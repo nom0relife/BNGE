@@ -42,7 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 };
 
 type SearchBarProps = {
-  onSearch: (value: string) => void;
+  onSearch: (query: string) => void;
 };
 
 export default SearchBar;

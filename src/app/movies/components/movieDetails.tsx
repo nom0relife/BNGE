@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC } from 'react';
-import fetchMovie from '@/app/movies/components/fetchMovie';
-import { Movie } from '@/app/movies/components/fetchMovie';
+import fetchMovies from '@/app/movies/components/fetchMovies';
+import { Movie } from '@/app/movies/components/fetchMovies';
 import MovieCard from '@/app/movies/components/movieCard';
 
 const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
@@ -25,7 +25,7 @@ const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
 export default function MovieDetails({ query }: { query: string }) {
   const [movies, setMovies] = useState<Movie[]>([]);
   useEffect(() => {
-    fetchMovie(query).then(results => {
+    fetchMovies(query).then(results => {
       setMovies(results);
     });
   }, [query]);
