@@ -4,15 +4,16 @@ import { roundToTwoDecimalPlaces } from '@/app/movies/utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { useRouter } from 'next/navigation';
+import { routePaths } from '@/app/common/constants';
 
 
 const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`/movies/${movie.id}`);
+    router.push(`${routePaths.MOVIES}/${movie.id}`);
   };
   return (
-    <button onClick={() => handleClick()}>
+    <button onClick={handleClick}>
       <div className="w-full max-w-md mx-auto
   bg-[#1e1b26] rounded-md shadow-[0_5px_115px_-14px_rgba(0,0,0,0.8)]
    overflow-hidden relative transform transition duration-300 hover:scale-[1.03]

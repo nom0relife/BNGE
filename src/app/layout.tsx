@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import '@lib/fontawesome'; // Import FontAwesome configuration
 import { SITE_TITLE } from '@/app/common/constants';
+import { SWRConfig } from 'swr';
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
@@ -17,9 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex flex-col min-h-screen">
-          {children}
-        </div>
+        <SWRConfig value={{
+        // Optional: add config here (e.g., revalidateOnFocus: false)
+        }}>
+          <div className="flex flex-col min-h-screen">
+            {children}
+          </div>
+        </SWRConfig>
       </body>
     </html>
   );

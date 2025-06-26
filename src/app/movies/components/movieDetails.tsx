@@ -2,6 +2,7 @@ import React, { useState, useEffect, FC } from 'react';
 import fetchMovies from '@/app/movies/components/fetchMovies';
 import { Movie } from '@/app/movies/components/fetchMovies';
 import MovieCard from '@/app/movies/components/movieCard';
+import useSWR from 'swr';
 
 const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
 
@@ -23,12 +24,14 @@ const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
 };
 
 export default function MovieDetails({ query }: { query: string }) {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  useEffect(() => {
-    fetchMovies(query).then(results => {
-      setMovies(results);
-    });
-  }, [query]);
+  const { data: movies = [], error, isLoading } = useSWR(query, fetchMovies, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    // ...any other options
+  });
+
+  if (isLoading) {return <div>Loading…</div>;}
+  if (error) {return <div>Error loading movies!</div>;}
 
   return <MovieList movies={movies} />;
 }

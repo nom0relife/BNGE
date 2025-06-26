@@ -11,6 +11,19 @@ export interface singleMovie {
     popularity: number;
     original_language: string;
     overview: string;
+    original_title: string;
+    poster_path: string;
+    genre_ids?: number[];
+    adult?: boolean;
+    genres?: { id: number; name: string }[];
+    homepage?: string;
+    status?: string;
+    tagline?: string;
+    production_companies?: { id: number; name: string; logo_path?: string; origin_country: string }[];
+    spoken_languages?: { iso_639_1: string; name: string; english_name: string }[];
+    runtime?: number;
+    video?: boolean;
+    production_countries?: { iso_3166_1: string; name: string }[];
 }
 
 async function fetchMovie(id: number): Promise<singleMovie | null> {
@@ -28,7 +41,6 @@ async function fetchMovie(id: number): Promise<singleMovie | null> {
     }
 
     const data = await res.json();
-    console.log('data', data);
     return data as singleMovie;
   } catch (error) {
     console.error('Error fetching movies:', error);
