@@ -1,27 +1,39 @@
 'use client';
 import '@/app/movies/styles/searchBar.css';
-import React, { useState } from 'react';
+import React, { ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/app/redux/store';
+import { setQuery } from '@/app/redux/slices/uiState';
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [inputValue, setInputValue] = useState<string>('');
+const SearchBar = () => {
+  const query = useSelector(((state: RootState) => state.uiState.query));
+  const dispatch = useDispatch<AppDispatch>();
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setQuery(e.target.value));
+  };
+  const router = useRouter();
+  const handleSearch = (searchQuery: string) => {
+    router.push(`/?search=${encodeURIComponent(searchQuery)}`);
+  };
 
   return (
     <div className="search">
       <div className="search-box">
         <div className="search-field">
           <input
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => handleQueryChange(e)}
             placeholder="Search..."
             onKeyDown={(e) => {
               if(e.key === 'Enter') {
-                onSearch(inputValue);
+                handleSearch(query);
               }
             }}
             className="input"
             type="text" />
           <div className="search-box-icon">
             <button
-              onClick={() => onSearch(inputValue)}
+              onClick={() => handleSearch(query)}
               className="btn-icon-content"
             >
               <i className="search-icon">
@@ -39,10 +51,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       </div>
     </div>
   );
-};
-
-type SearchBarProps = {
-  onSearch: (query: string) => void;
 };
 
 export default SearchBar;

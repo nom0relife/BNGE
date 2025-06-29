@@ -1,6 +1,5 @@
-import React, { useState, useEffect, FC } from 'react';
-import fetchMovies from '@/app/movies/components/fetchMovies';
-import { Movie } from '@/app/movies/components/fetchMovies';
+import React, {FC} from 'react';
+import fetchMovies, {Movie} from '@/app/movies/components/fetchMovies';
 import MovieCard from '@/app/movies/components/movieCard';
 import useSWR from 'swr';
 

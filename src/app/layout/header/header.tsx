@@ -1,11 +1,11 @@
 'use client';
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchBar from '@/app/core/SearchBar';
 import { SITE_TITLE } from '@/app/common/constants';
 
-const Header: React.FC<HeaderProps> = ({ onSearch }) => {
+const Header: FC<HeaderProps> = ( ) => {
   return (
     <header
       className="bg-gray-800 text-white p-4 flex items-center justify-between">
@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
         />
         <h1 className="text-2xl font-bold">{SITE_TITLE}</h1>
       </div>
-      {onSearch && <SearchBar onSearch={onSearch} />}
+      <SearchBar />
       <nav>
         <ul className="flex space-x-4">
           <li>
