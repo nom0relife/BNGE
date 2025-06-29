@@ -4,18 +4,15 @@ import Footer from '@/app/layout/footer/footer';
 import Header from '@/app/layout/header/header';
 import MovieDetails from '@/app/movies/components/movieDetails';
 import DefaultPage from '@/app/movies/components/defaultPage';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/store';
 
 const Home = () => {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('search') || '';
-  const router = useRouter();
-  const handleSearch = (searchQuery: string) => {
-    router.push(`/?search=${encodeURIComponent(searchQuery)}`);
-  };
+  const query = useSelector(((state: RootState) => state.uiState.query));
+
   return (
     <React.Fragment>
-      <Header onSearch={handleSearch} />
+      <Header />
       <main className="flex-grow p-4">
         {query !== '' ? (
           <MovieDetails query={query} />)
