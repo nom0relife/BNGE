@@ -1,15 +1,21 @@
 'use client';
-import React, { FC } from 'react';
-import { singleMovie } from '@/app/movies/components/fetchMovie';
+import React, { FC, useRef } from 'react';
+import { singleMovie } from '@/app/movies/lib/fetchMovie';
 import { useRouter } from 'next/navigation';
 import {
   TMDB_IMAGE_BASE_URL,
   TMDB_IMAGE_BASE_URL_POSTER
 } from '@/app/common/constants';
+import { useClickOutside } from '@/app/movies/utils/utils';
+import Loading from '@/app/core/components/loading';
 
 const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
   const router = useRouter();
-  if (!movie) {return <div>Loading...</div>;}
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, () => {
+    router.back();
+  });
+  if (!movie) {return <Loading />;}
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gray-950 overflow-hidden">
@@ -24,7 +30,7 @@ const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col md:flex-row
+      <div ref={ref} className="relative z-10 flex flex-col md:flex-row
        items-center md:items-start p-6 md:p-12 gap-8 w-full
         max-w-4xl mx-auto rounded-2xl bg-black/70 shadow-2xl border border-gray-800">
 

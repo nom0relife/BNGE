@@ -4,11 +4,11 @@ import Footer from '@/app/layout/footer/footer';
 import Header from '@/app/layout/header/header';
 import MovieDetails from '@/app/movies/components/movieDetails';
 import DefaultPage from '@/app/movies/components/defaultPage';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/redux/store';
+import { useSearchParams } from 'next/navigation';
 
 const Home = () => {
-  const query = useSelector(((state: RootState) => state.uiState.query));
+  const searchParams = useSearchParams();
+  const query = searchParams.get('search') || '';
 
   return (
     <React.Fragment>

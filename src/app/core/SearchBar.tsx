@@ -1,20 +1,40 @@
 'use client';
 import '@/app/movies/styles/searchBar.css';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
 import { setQuery } from '@/app/redux/slices/uiState';
+import debounce from 'lodash/debounce';
 
 const SearchBar = () => {
-  const query = useSelector(((state: RootState) => state.uiState.query));
+  const query = useSelector((state: RootState) => state.uiState.query);
   const dispatch = useDispatch<AppDispatch>();
-  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setQuery(e.target.value));
-  };
   const router = useRouter();
-  const handleSearch = (searchQuery: string) => {
-    router.push(`/?search=${encodeURIComponent(searchQuery)}`);
+
+  // Debounce the navigation: this is the only place you need lodash!
+  const debouncedNavigate = useMemo(
+    () =>
+      debounce((searchQuery: string) => {
+        router.push(`/?search=${encodeURIComponent(searchQuery)}`);
+      }, 500), // 500ms debounce
+    [router]
+  );
+
+  // Cancel debounce if component unmounts (cleanup)
+  useEffect(() => {
+    return () => debouncedNavigate.cancel();
+  }, [debouncedNavigate]);
+
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(setQuery(value));    // Input updates instantly (Redux)
+    debouncedNavigate(value);     // Navigation happens after 400ms pause
+  };
+
+  // For immediate search on Enter or button
+  const handleImmediateSearch = () => {
+    router.push(`/?search=${encodeURIComponent(query)}`);
   };
 
   return (
@@ -22,18 +42,20 @@ const SearchBar = () => {
       <div className="search-box">
         <div className="search-field">
           <input
-            onChange={(e) => handleQueryChange(e)}
+            value={query}
+            onChange={handleQueryChange}
             placeholder="Search..."
             onKeyDown={(e) => {
-              if(e.key === 'Enter') {
-                handleSearch(query);
+              if (e.key === 'Enter') {
+                handleImmediateSearch();
               }
             }}
             className="input"
-            type="text" />
+            type="text"
+          />
           <div className="search-box-icon">
             <button
-              onClick={() => handleSearch(query)}
+              onClick={handleImmediateSearch}
               className="btn-icon-content"
             >
               <i className="search-icon">

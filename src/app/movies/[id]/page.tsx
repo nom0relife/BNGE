@@ -1,8 +1,8 @@
-import DetailsPage from '@/app/core/detailsPage';
+import DetailsPage from '@/app/movies/components/detailsPage';
 import Header from '@/app/layout/header/header';
 import Footer from '@/app/layout/footer/footer';
 import React from 'react';
-import fetchMovie from '@/app/movies/components/fetchMovie';
+import fetchMovie from '@/app/movies/lib/fetchMovie';
 
 const Page = async ({
   params }: { params: Promise<{ id: number }> }) => {
