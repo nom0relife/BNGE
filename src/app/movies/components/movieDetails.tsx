@@ -1,7 +1,8 @@
-import React, {FC} from 'react';
-import fetchMovies, {Movie} from '@/app/movies/components/fetchMovies';
+import React, { FC } from 'react';
+import fetchMovies, { Movie } from '@/app/movies/lib/fetchMovies';
 import MovieCard from '@/app/movies/components/movieCard';
 import useSWR from 'swr';
+import Loading from '@/app/core/components/loading';
 
 const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
 
@@ -12,7 +13,8 @@ const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
   });
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3
+     lg:grid-cols-4 gap-6 p-4">
       {filteredMovies.map((movie: Movie) => (
         <React.Fragment key={movie.id}>
           <MovieCard movie={movie} key={movie.id} />
@@ -29,7 +31,7 @@ export default function MovieDetails({ query }: { query: string }) {
     // ...any other options
   });
 
-  if (isLoading) {return <div>Loading…</div>;}
+  if (isLoading) {return <Loading />;}
   if (error) {return <div>Error loading movies!</div>;}
 
   return <MovieList movies={movies} />;

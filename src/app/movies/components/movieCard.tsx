@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Movie } from '@/app/movies/components/fetchMovies';
+import { Movie } from '@/app/movies/lib/fetchMovies';
 import { roundToTwoDecimalPlaces } from '@/app/movies/utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile, faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -14,7 +14,7 @@ const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
   };
   return (
     <button onClick={handleClick}>
-      <div className="w-full max-w-md mx-auto
+      <div className="w-full max-w-md mx-auto h-[480px]
   bg-[#1e1b26] rounded-md shadow-[0_5px_115px_-14px_rgba(0,0,0,0.8)]
    overflow-hidden relative transform transition duration-300 hover:scale-[1.03]
     hover:shadow-[0_0_25px_#fe414166]">
@@ -56,7 +56,11 @@ const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
           <div className="flex justify-between items-center mb-2">
             <h5 className="text-xs font-medium text-gray-400">SUMMARY</h5>
           </div>
-          <p className="text-[#9b9b9b] leading-snug max-h-[150px] overflow-y-auto">
+          <p
+            className="text-[#9b9b9b] leading-snug max-h-[200px]
+             overflow-y-auto scrollbar-thin scrollbar-thumb-[#fe4141]
+              scrollbar-track-[#2a2733] pr-2 pb-6"
+          >
             {movie.overview}
           </p>
         </div>
