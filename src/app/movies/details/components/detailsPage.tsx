@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { singleMovie } from '@/app/movies/lib/fetchMovie';
 import { useRouter } from 'next/navigation';
 import {
@@ -8,13 +8,20 @@ import {
 } from '@/app/common/constants';
 import { useClickOutside } from '@/app/movies/utils/utils';
 import Loading from '@/app/core/components/loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faHeartRegular  } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
 const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
+  const [favorite, setFavorite] = useState(false);
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => {
     router.back();
   });
+  const handleHeartClick = () => {
+    setFavorite(!favorite);
+  };
   if (!movie) {return <Loading />;}
 
   return (
@@ -153,6 +160,14 @@ const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
             </span>
           </div>
         </div>
+        <button onClick={handleHeartClick} className="hover:cursor-pointer">
+          <div className="absolute top-2 right-3 z-10 text-[#fe4141] text-xl">
+            {!favorite
+              ? <FontAwesomeIcon icon={faHeartRegular} />
+              : <FontAwesomeIcon icon={faHeartSolid}  />
+            }
+          </div>
+        </button>
       </div>
     </div>
   );

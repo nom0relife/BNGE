@@ -1,4 +1,4 @@
-import DetailsPage from '@/app/movies/components/detailsPage';
+import DetailsPage from '@/app/movies/details/components/detailsPage';
 import Header from '@/app/layout/header/header';
 import Footer from '@/app/layout/footer/footer';
 import React from 'react';

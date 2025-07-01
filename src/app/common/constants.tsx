@@ -21,7 +21,7 @@ export const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
 export const routePaths = {
   HOME: '/',
   MOVIES: '/movies',
-  MOVIE_DETAILS: '/movies/[id]',
+  MOVIE_DETAILS: '/movies/details',
   FAVORITES: '/public',
   ABOUT: '/about',
   CONTACT: '/contact',

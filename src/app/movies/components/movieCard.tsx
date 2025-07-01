@@ -10,14 +10,14 @@ import { routePaths } from '@/app/common/constants';
 const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`${routePaths.MOVIES}/${movie.id}`);
+    router.push(`${routePaths.MOVIE_DETAILS}/${movie.id}`);
   };
   return (
     <button onClick={handleClick}>
       <div className="w-full max-w-md mx-auto h-[480px]
   bg-[#1e1b26] rounded-md shadow-[0_5px_115px_-14px_rgba(0,0,0,0.8)]
    overflow-hidden relative transform transition duration-300 hover:scale-[1.03]
-    hover:shadow-[0_0_25px_#fe414166]">
+    hover:shadow-[0_0_25px_#fe414166] hover:cursor-pointer">
         {/* Heart icon */}
         <div className="absolute top-2 right-3 z-10 text-[#fe4141] text-xl">
           <FontAwesomeIcon icon={faHeart} />
