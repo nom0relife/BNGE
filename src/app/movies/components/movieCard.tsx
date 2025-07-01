@@ -2,12 +2,20 @@ import React, { FC } from 'react';
 import { Movie } from '@/app/movies/lib/fetchMovies';
 import { roundToTwoDecimalPlaces } from '@/app/movies/utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceSmile, faHeart } from '@fortawesome/free-regular-svg-icons';
+import {
+  faFaceSmile,
+  faHeart as faHeartRegular
+} from '@fortawesome/free-regular-svg-icons';
 import { useRouter } from 'next/navigation';
 import { routePaths } from '@/app/common/constants';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 
 
-const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
+const MovieCard: FC<{ movie: Movie, favoriteMoviesIds: number[] }> = ({
+  movie,
+  favoriteMoviesIds
+}) => {
+  const isFavorite = favoriteMoviesIds.includes(movie.id);
   const router = useRouter();
   const handleClick = () => {
     router.push(`${routePaths.MOVIE_DETAILS}/${movie.id}`);
@@ -20,7 +28,10 @@ const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
     hover:shadow-[0_0_25px_#fe414166] hover:cursor-pointer">
         {/* Heart icon */}
         <div className="absolute top-2 right-3 z-10 text-[#fe4141] text-xl">
-          <FontAwesomeIcon icon={faHeart} />
+          {!isFavorite
+            ? null
+            : <FontAwesomeIcon icon={faHeartSolid}  />
+          }
         </div>
 
         {/* Movie Image */}
@@ -31,11 +42,11 @@ const MovieCard: FC<{ movie: Movie }> = ({ movie }) => {
             className="w-full h-full object-cover rounded-t mask-image"
             style={{
               maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, ' +
-                                'rgba(0,0,0,1) 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 65%,' +
-                                ' rgba(0,0,0,0.6) 85%, rgba(0,0,0,0) 100%)',
+              'rgba(0,0,0,1) 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 65%,' +
+              ' rgba(0,0,0,0.6) 85%, rgba(0,0,0,0) 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1)' +
-                                ' 0%, rgba(0,0,0,1) 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,1)' +
-                                ' 65%, rgba(0,0,0,0.6) 85%, rgba(0,0,0,0) 100%)'
+              ' 0%, rgba(0,0,0,1) 35%, rgba(0,0,0,1) 50%, rgba(0,0,0,1)' +
+              ' 65%, rgba(0,0,0,0.6) 85%, rgba(0,0,0,0) 100%)'
             }}
           />
         </div>

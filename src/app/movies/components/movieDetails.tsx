@@ -3,9 +3,12 @@ import fetchMovies, { Movie } from '@/app/movies/lib/fetchMovies';
 import MovieCard from '@/app/movies/components/movieCard';
 import useSWR from 'swr';
 import Loading from '@/app/core/components/loading';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/store';
 
 const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
-
+  const favoriteMoviesIds = useSelector((state:RootState) =>
+    state.movies.favoriteMovies);
   const filteredMovies = movies.filter((movie: Movie) => {
     if (movie.popularity > 1 && movie.original_language === 'en') {
       return movie;
@@ -17,7 +20,7 @@ const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
      lg:grid-cols-4 gap-6 p-4">
       {filteredMovies.map((movie: Movie) => (
         <React.Fragment key={movie.id}>
-          <MovieCard movie={movie} key={movie.id} />
+          <MovieCard movie={movie} key={movie.id} favoriteMoviesIds={favoriteMoviesIds} />
         </React.Fragment>
       ))}
     </div>

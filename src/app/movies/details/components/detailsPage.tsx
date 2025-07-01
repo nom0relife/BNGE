@@ -11,17 +11,30 @@ import Loading from '@/app/core/components/loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as faHeartRegular  } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/app/redux/store';
+import { setFavoriteMovies, setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
 
 const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
-  const [favorite, setFavorite] = useState(false);
+  const favoriteMoviesIds = useSelector((state:RootState) =>
+    state.movies.favoriteMovies);
+  const isFavorite = movie?.id ? favoriteMoviesIds.includes(movie.id) : false;
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => {
     router.back();
   });
   const handleHeartClick = () => {
-    setFavorite(!favorite);
+    if( movie !== null && !favoriteMoviesIds.includes(movie.id)) {
+      dispatch(setFavoriteMovies(movie.id));
+    }
+    if( movie !== null && favoriteMoviesIds.includes(movie.id)) {
+      dispatch(setFavoriteMoviesArray(favoriteMoviesIds.filter(id => id !== movie.id)));
+    }
   };
+
+  // If movie is null, show loading state
   if (!movie) {return <Loading />;}
 
   return (
@@ -162,7 +175,7 @@ const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
         </div>
         <button onClick={handleHeartClick} className="hover:cursor-pointer">
           <div className="absolute top-2 right-3 z-10 text-[#fe4141] text-xl">
-            {!favorite
+            {!isFavorite
               ? <FontAwesomeIcon icon={faHeartRegular} />
               : <FontAwesomeIcon icon={faHeartSolid}  />
             }

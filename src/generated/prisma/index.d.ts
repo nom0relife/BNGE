@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model FavoriteMovies
+ * 
+ */
+export type FavoriteMovies = $Result.DefaultSelection<Prisma.$FavoriteMoviesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.favoriteMovies`: Exposes CRUD operations for the **FavoriteMovies** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FavoriteMovies
+    * const favoriteMovies = await prisma.favoriteMovies.findMany()
+    * ```
+    */
+  get favoriteMovies(): Prisma.FavoriteMoviesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -211,8 +226,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.10.1
-   * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+   * Prisma Client JS version: 6.11.0
+   * Query Engine version: 9c30299f5a0ea26a96790e13f796dc6094db3173
    */
   export type PrismaVersion = {
     client: string
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    FavoriteMovies: 'FavoriteMovies'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "favoriteMovies"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      FavoriteMovies: {
+        payload: Prisma.$FavoriteMoviesPayload<ExtArgs>
+        fields: Prisma.FavoriteMoviesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FavoriteMoviesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FavoriteMoviesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>
+          }
+          findFirst: {
+            args: Prisma.FavoriteMoviesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FavoriteMoviesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>
+          }
+          findMany: {
+            args: Prisma.FavoriteMoviesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>[]
+          }
+          create: {
+            args: Prisma.FavoriteMoviesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>
+          }
+          createMany: {
+            args: Prisma.FavoriteMoviesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FavoriteMoviesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>[]
+          }
+          delete: {
+            args: Prisma.FavoriteMoviesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>
+          }
+          update: {
+            args: Prisma.FavoriteMoviesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>
+          }
+          deleteMany: {
+            args: Prisma.FavoriteMoviesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FavoriteMoviesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FavoriteMoviesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>[]
+          }
+          upsert: {
+            args: Prisma.FavoriteMoviesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FavoriteMoviesPayload>
+          }
+          aggregate: {
+            args: Prisma.FavoriteMoviesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFavoriteMovies>
+          }
+          groupBy: {
+            args: Prisma.FavoriteMoviesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FavoriteMoviesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FavoriteMoviesCountArgs<ExtArgs>
+            result: $Utils.Optional<FavoriteMoviesCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    favoriteMovies?: FavoriteMoviesOmit
   }
 
   /* Types for Logging */
@@ -1886,6 +1977,996 @@ export namespace Prisma {
 
 
   /**
+   * Model FavoriteMovies
+   */
+
+  export type AggregateFavoriteMovies = {
+    _count: FavoriteMoviesCountAggregateOutputType | null
+    _avg: FavoriteMoviesAvgAggregateOutputType | null
+    _sum: FavoriteMoviesSumAggregateOutputType | null
+    _min: FavoriteMoviesMinAggregateOutputType | null
+    _max: FavoriteMoviesMaxAggregateOutputType | null
+  }
+
+  export type FavoriteMoviesAvgAggregateOutputType = {
+    id: number | null
+    movie_ids: number | null
+  }
+
+  export type FavoriteMoviesSumAggregateOutputType = {
+    id: number | null
+    movie_ids: number[]
+  }
+
+  export type FavoriteMoviesMinAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FavoriteMoviesMaxAggregateOutputType = {
+    id: number | null
+  }
+
+  export type FavoriteMoviesCountAggregateOutputType = {
+    id: number
+    movie_ids: number
+    _all: number
+  }
+
+
+  export type FavoriteMoviesAvgAggregateInputType = {
+    id?: true
+    movie_ids?: true
+  }
+
+  export type FavoriteMoviesSumAggregateInputType = {
+    id?: true
+    movie_ids?: true
+  }
+
+  export type FavoriteMoviesMinAggregateInputType = {
+    id?: true
+  }
+
+  export type FavoriteMoviesMaxAggregateInputType = {
+    id?: true
+  }
+
+  export type FavoriteMoviesCountAggregateInputType = {
+    id?: true
+    movie_ids?: true
+    _all?: true
+  }
+
+  export type FavoriteMoviesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FavoriteMovies to aggregate.
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteMovies to fetch.
+     */
+    orderBy?: FavoriteMoviesOrderByWithRelationInput | FavoriteMoviesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FavoriteMoviesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteMovies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FavoriteMovies
+    **/
+    _count?: true | FavoriteMoviesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FavoriteMoviesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FavoriteMoviesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FavoriteMoviesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FavoriteMoviesMaxAggregateInputType
+  }
+
+  export type GetFavoriteMoviesAggregateType<T extends FavoriteMoviesAggregateArgs> = {
+        [P in keyof T & keyof AggregateFavoriteMovies]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFavoriteMovies[P]>
+      : GetScalarType<T[P], AggregateFavoriteMovies[P]>
+  }
+
+
+
+
+  export type FavoriteMoviesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FavoriteMoviesWhereInput
+    orderBy?: FavoriteMoviesOrderByWithAggregationInput | FavoriteMoviesOrderByWithAggregationInput[]
+    by: FavoriteMoviesScalarFieldEnum[] | FavoriteMoviesScalarFieldEnum
+    having?: FavoriteMoviesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FavoriteMoviesCountAggregateInputType | true
+    _avg?: FavoriteMoviesAvgAggregateInputType
+    _sum?: FavoriteMoviesSumAggregateInputType
+    _min?: FavoriteMoviesMinAggregateInputType
+    _max?: FavoriteMoviesMaxAggregateInputType
+  }
+
+  export type FavoriteMoviesGroupByOutputType = {
+    id: number
+    movie_ids: number[]
+    _count: FavoriteMoviesCountAggregateOutputType | null
+    _avg: FavoriteMoviesAvgAggregateOutputType | null
+    _sum: FavoriteMoviesSumAggregateOutputType | null
+    _min: FavoriteMoviesMinAggregateOutputType | null
+    _max: FavoriteMoviesMaxAggregateOutputType | null
+  }
+
+  type GetFavoriteMoviesGroupByPayload<T extends FavoriteMoviesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FavoriteMoviesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FavoriteMoviesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FavoriteMoviesGroupByOutputType[P]>
+            : GetScalarType<T[P], FavoriteMoviesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FavoriteMoviesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    movie_ids?: boolean
+  }, ExtArgs["result"]["favoriteMovies"]>
+
+  export type FavoriteMoviesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    movie_ids?: boolean
+  }, ExtArgs["result"]["favoriteMovies"]>
+
+  export type FavoriteMoviesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    movie_ids?: boolean
+  }, ExtArgs["result"]["favoriteMovies"]>
+
+  export type FavoriteMoviesSelectScalar = {
+    id?: boolean
+    movie_ids?: boolean
+  }
+
+  export type FavoriteMoviesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "movie_ids", ExtArgs["result"]["favoriteMovies"]>
+
+  export type $FavoriteMoviesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FavoriteMovies"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      movie_ids: number[]
+    }, ExtArgs["result"]["favoriteMovies"]>
+    composites: {}
+  }
+
+  type FavoriteMoviesGetPayload<S extends boolean | null | undefined | FavoriteMoviesDefaultArgs> = $Result.GetResult<Prisma.$FavoriteMoviesPayload, S>
+
+  type FavoriteMoviesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FavoriteMoviesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FavoriteMoviesCountAggregateInputType | true
+    }
+
+  export interface FavoriteMoviesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FavoriteMovies'], meta: { name: 'FavoriteMovies' } }
+    /**
+     * Find zero or one FavoriteMovies that matches the filter.
+     * @param {FavoriteMoviesFindUniqueArgs} args - Arguments to find a FavoriteMovies
+     * @example
+     * // Get one FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FavoriteMoviesFindUniqueArgs>(args: SelectSubset<T, FavoriteMoviesFindUniqueArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FavoriteMovies that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FavoriteMoviesFindUniqueOrThrowArgs} args - Arguments to find a FavoriteMovies
+     * @example
+     * // Get one FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FavoriteMoviesFindUniqueOrThrowArgs>(args: SelectSubset<T, FavoriteMoviesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FavoriteMovies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesFindFirstArgs} args - Arguments to find a FavoriteMovies
+     * @example
+     * // Get one FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FavoriteMoviesFindFirstArgs>(args?: SelectSubset<T, FavoriteMoviesFindFirstArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FavoriteMovies that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesFindFirstOrThrowArgs} args - Arguments to find a FavoriteMovies
+     * @example
+     * // Get one FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FavoriteMoviesFindFirstOrThrowArgs>(args?: SelectSubset<T, FavoriteMoviesFindFirstOrThrowArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FavoriteMovies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.findMany()
+     * 
+     * // Get first 10 FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const favoriteMoviesWithIdOnly = await prisma.favoriteMovies.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FavoriteMoviesFindManyArgs>(args?: SelectSubset<T, FavoriteMoviesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FavoriteMovies.
+     * @param {FavoriteMoviesCreateArgs} args - Arguments to create a FavoriteMovies.
+     * @example
+     * // Create one FavoriteMovies
+     * const FavoriteMovies = await prisma.favoriteMovies.create({
+     *   data: {
+     *     // ... data to create a FavoriteMovies
+     *   }
+     * })
+     * 
+     */
+    create<T extends FavoriteMoviesCreateArgs>(args: SelectSubset<T, FavoriteMoviesCreateArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FavoriteMovies.
+     * @param {FavoriteMoviesCreateManyArgs} args - Arguments to create many FavoriteMovies.
+     * @example
+     * // Create many FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FavoriteMoviesCreateManyArgs>(args?: SelectSubset<T, FavoriteMoviesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FavoriteMovies and returns the data saved in the database.
+     * @param {FavoriteMoviesCreateManyAndReturnArgs} args - Arguments to create many FavoriteMovies.
+     * @example
+     * // Create many FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FavoriteMovies and only return the `id`
+     * const favoriteMoviesWithIdOnly = await prisma.favoriteMovies.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FavoriteMoviesCreateManyAndReturnArgs>(args?: SelectSubset<T, FavoriteMoviesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FavoriteMovies.
+     * @param {FavoriteMoviesDeleteArgs} args - Arguments to delete one FavoriteMovies.
+     * @example
+     * // Delete one FavoriteMovies
+     * const FavoriteMovies = await prisma.favoriteMovies.delete({
+     *   where: {
+     *     // ... filter to delete one FavoriteMovies
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FavoriteMoviesDeleteArgs>(args: SelectSubset<T, FavoriteMoviesDeleteArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FavoriteMovies.
+     * @param {FavoriteMoviesUpdateArgs} args - Arguments to update one FavoriteMovies.
+     * @example
+     * // Update one FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FavoriteMoviesUpdateArgs>(args: SelectSubset<T, FavoriteMoviesUpdateArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FavoriteMovies.
+     * @param {FavoriteMoviesDeleteManyArgs} args - Arguments to filter FavoriteMovies to delete.
+     * @example
+     * // Delete a few FavoriteMovies
+     * const { count } = await prisma.favoriteMovies.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FavoriteMoviesDeleteManyArgs>(args?: SelectSubset<T, FavoriteMoviesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FavoriteMovies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FavoriteMoviesUpdateManyArgs>(args: SelectSubset<T, FavoriteMoviesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FavoriteMovies and returns the data updated in the database.
+     * @param {FavoriteMoviesUpdateManyAndReturnArgs} args - Arguments to update many FavoriteMovies.
+     * @example
+     * // Update many FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FavoriteMovies and only return the `id`
+     * const favoriteMoviesWithIdOnly = await prisma.favoriteMovies.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FavoriteMoviesUpdateManyAndReturnArgs>(args: SelectSubset<T, FavoriteMoviesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FavoriteMovies.
+     * @param {FavoriteMoviesUpsertArgs} args - Arguments to update or create a FavoriteMovies.
+     * @example
+     * // Update or create a FavoriteMovies
+     * const favoriteMovies = await prisma.favoriteMovies.upsert({
+     *   create: {
+     *     // ... data to create a FavoriteMovies
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FavoriteMovies we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FavoriteMoviesUpsertArgs>(args: SelectSubset<T, FavoriteMoviesUpsertArgs<ExtArgs>>): Prisma__FavoriteMoviesClient<$Result.GetResult<Prisma.$FavoriteMoviesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FavoriteMovies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesCountArgs} args - Arguments to filter FavoriteMovies to count.
+     * @example
+     * // Count the number of FavoriteMovies
+     * const count = await prisma.favoriteMovies.count({
+     *   where: {
+     *     // ... the filter for the FavoriteMovies we want to count
+     *   }
+     * })
+    **/
+    count<T extends FavoriteMoviesCountArgs>(
+      args?: Subset<T, FavoriteMoviesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FavoriteMoviesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FavoriteMovies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FavoriteMoviesAggregateArgs>(args: Subset<T, FavoriteMoviesAggregateArgs>): Prisma.PrismaPromise<GetFavoriteMoviesAggregateType<T>>
+
+    /**
+     * Group by FavoriteMovies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FavoriteMoviesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FavoriteMoviesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FavoriteMoviesGroupByArgs['orderBy'] }
+        : { orderBy?: FavoriteMoviesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FavoriteMoviesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFavoriteMoviesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FavoriteMovies model
+   */
+  readonly fields: FavoriteMoviesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FavoriteMovies.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FavoriteMoviesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FavoriteMovies model
+   */
+  interface FavoriteMoviesFieldRefs {
+    readonly id: FieldRef<"FavoriteMovies", 'Int'>
+    readonly movie_ids: FieldRef<"FavoriteMovies", 'Int[]'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FavoriteMovies findUnique
+   */
+  export type FavoriteMoviesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * Filter, which FavoriteMovies to fetch.
+     */
+    where: FavoriteMoviesWhereUniqueInput
+  }
+
+  /**
+   * FavoriteMovies findUniqueOrThrow
+   */
+  export type FavoriteMoviesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * Filter, which FavoriteMovies to fetch.
+     */
+    where: FavoriteMoviesWhereUniqueInput
+  }
+
+  /**
+   * FavoriteMovies findFirst
+   */
+  export type FavoriteMoviesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * Filter, which FavoriteMovies to fetch.
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteMovies to fetch.
+     */
+    orderBy?: FavoriteMoviesOrderByWithRelationInput | FavoriteMoviesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FavoriteMovies.
+     */
+    cursor?: FavoriteMoviesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteMovies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FavoriteMovies.
+     */
+    distinct?: FavoriteMoviesScalarFieldEnum | FavoriteMoviesScalarFieldEnum[]
+  }
+
+  /**
+   * FavoriteMovies findFirstOrThrow
+   */
+  export type FavoriteMoviesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * Filter, which FavoriteMovies to fetch.
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteMovies to fetch.
+     */
+    orderBy?: FavoriteMoviesOrderByWithRelationInput | FavoriteMoviesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FavoriteMovies.
+     */
+    cursor?: FavoriteMoviesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteMovies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FavoriteMovies.
+     */
+    distinct?: FavoriteMoviesScalarFieldEnum | FavoriteMoviesScalarFieldEnum[]
+  }
+
+  /**
+   * FavoriteMovies findMany
+   */
+  export type FavoriteMoviesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * Filter, which FavoriteMovies to fetch.
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FavoriteMovies to fetch.
+     */
+    orderBy?: FavoriteMoviesOrderByWithRelationInput | FavoriteMoviesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FavoriteMovies.
+     */
+    cursor?: FavoriteMoviesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FavoriteMovies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FavoriteMovies.
+     */
+    skip?: number
+    distinct?: FavoriteMoviesScalarFieldEnum | FavoriteMoviesScalarFieldEnum[]
+  }
+
+  /**
+   * FavoriteMovies create
+   */
+  export type FavoriteMoviesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * The data needed to create a FavoriteMovies.
+     */
+    data?: XOR<FavoriteMoviesCreateInput, FavoriteMoviesUncheckedCreateInput>
+  }
+
+  /**
+   * FavoriteMovies createMany
+   */
+  export type FavoriteMoviesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FavoriteMovies.
+     */
+    data: FavoriteMoviesCreateManyInput | FavoriteMoviesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FavoriteMovies createManyAndReturn
+   */
+  export type FavoriteMoviesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * The data used to create many FavoriteMovies.
+     */
+    data: FavoriteMoviesCreateManyInput | FavoriteMoviesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FavoriteMovies update
+   */
+  export type FavoriteMoviesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * The data needed to update a FavoriteMovies.
+     */
+    data: XOR<FavoriteMoviesUpdateInput, FavoriteMoviesUncheckedUpdateInput>
+    /**
+     * Choose, which FavoriteMovies to update.
+     */
+    where: FavoriteMoviesWhereUniqueInput
+  }
+
+  /**
+   * FavoriteMovies updateMany
+   */
+  export type FavoriteMoviesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FavoriteMovies.
+     */
+    data: XOR<FavoriteMoviesUpdateManyMutationInput, FavoriteMoviesUncheckedUpdateManyInput>
+    /**
+     * Filter which FavoriteMovies to update
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * Limit how many FavoriteMovies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FavoriteMovies updateManyAndReturn
+   */
+  export type FavoriteMoviesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * The data used to update FavoriteMovies.
+     */
+    data: XOR<FavoriteMoviesUpdateManyMutationInput, FavoriteMoviesUncheckedUpdateManyInput>
+    /**
+     * Filter which FavoriteMovies to update
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * Limit how many FavoriteMovies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FavoriteMovies upsert
+   */
+  export type FavoriteMoviesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * The filter to search for the FavoriteMovies to update in case it exists.
+     */
+    where: FavoriteMoviesWhereUniqueInput
+    /**
+     * In case the FavoriteMovies found by the `where` argument doesn't exist, create a new FavoriteMovies with this data.
+     */
+    create: XOR<FavoriteMoviesCreateInput, FavoriteMoviesUncheckedCreateInput>
+    /**
+     * In case the FavoriteMovies was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FavoriteMoviesUpdateInput, FavoriteMoviesUncheckedUpdateInput>
+  }
+
+  /**
+   * FavoriteMovies delete
+   */
+  export type FavoriteMoviesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+    /**
+     * Filter which FavoriteMovies to delete.
+     */
+    where: FavoriteMoviesWhereUniqueInput
+  }
+
+  /**
+   * FavoriteMovies deleteMany
+   */
+  export type FavoriteMoviesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FavoriteMovies to delete
+     */
+    where?: FavoriteMoviesWhereInput
+    /**
+     * Limit how many FavoriteMovies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FavoriteMovies without action
+   */
+  export type FavoriteMoviesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FavoriteMovies
+     */
+    select?: FavoriteMoviesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FavoriteMovies
+     */
+    omit?: FavoriteMoviesOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1907,6 +2988,14 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const FavoriteMoviesScalarFieldEnum: {
+    id: 'id',
+    movie_ids: 'movie_ids'
+  };
+
+  export type FavoriteMoviesScalarFieldEnum = (typeof FavoriteMoviesScalarFieldEnum)[keyof typeof FavoriteMoviesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2032,6 +3121,45 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
+  export type FavoriteMoviesWhereInput = {
+    AND?: FavoriteMoviesWhereInput | FavoriteMoviesWhereInput[]
+    OR?: FavoriteMoviesWhereInput[]
+    NOT?: FavoriteMoviesWhereInput | FavoriteMoviesWhereInput[]
+    id?: IntFilter<"FavoriteMovies"> | number
+    movie_ids?: IntNullableListFilter<"FavoriteMovies">
+  }
+
+  export type FavoriteMoviesOrderByWithRelationInput = {
+    id?: SortOrder
+    movie_ids?: SortOrder
+  }
+
+  export type FavoriteMoviesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FavoriteMoviesWhereInput | FavoriteMoviesWhereInput[]
+    OR?: FavoriteMoviesWhereInput[]
+    NOT?: FavoriteMoviesWhereInput | FavoriteMoviesWhereInput[]
+    movie_ids?: IntNullableListFilter<"FavoriteMovies">
+  }, "id">
+
+  export type FavoriteMoviesOrderByWithAggregationInput = {
+    id?: SortOrder
+    movie_ids?: SortOrder
+    _count?: FavoriteMoviesCountOrderByAggregateInput
+    _avg?: FavoriteMoviesAvgOrderByAggregateInput
+    _max?: FavoriteMoviesMaxOrderByAggregateInput
+    _min?: FavoriteMoviesMinOrderByAggregateInput
+    _sum?: FavoriteMoviesSumOrderByAggregateInput
+  }
+
+  export type FavoriteMoviesScalarWhereWithAggregatesInput = {
+    AND?: FavoriteMoviesScalarWhereWithAggregatesInput | FavoriteMoviesScalarWhereWithAggregatesInput[]
+    OR?: FavoriteMoviesScalarWhereWithAggregatesInput[]
+    NOT?: FavoriteMoviesScalarWhereWithAggregatesInput | FavoriteMoviesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FavoriteMovies"> | number
+    movie_ids?: IntNullableListFilter<"FavoriteMovies">
+  }
+
   export type UserCreateInput = {
     email: string
     password: string
@@ -2076,6 +3204,38 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FavoriteMoviesCreateInput = {
+    movie_ids?: FavoriteMoviesCreatemovie_idsInput | number[]
+  }
+
+  export type FavoriteMoviesUncheckedCreateInput = {
+    id?: number
+    movie_ids?: FavoriteMoviesCreatemovie_idsInput | number[]
+  }
+
+  export type FavoriteMoviesUpdateInput = {
+    movie_ids?: FavoriteMoviesUpdatemovie_idsInput | number[]
+  }
+
+  export type FavoriteMoviesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    movie_ids?: FavoriteMoviesUpdatemovie_idsInput | number[]
+  }
+
+  export type FavoriteMoviesCreateManyInput = {
+    id?: number
+    movie_ids?: FavoriteMoviesCreatemovie_idsInput | number[]
+  }
+
+  export type FavoriteMoviesUpdateManyMutationInput = {
+    movie_ids?: FavoriteMoviesUpdatemovie_idsInput | number[]
+  }
+
+  export type FavoriteMoviesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    movie_ids?: FavoriteMoviesUpdatemovie_idsInput | number[]
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2205,6 +3365,37 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableListFilter<$PrismaModel = never> = {
+    equals?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    has?: number | IntFieldRefInput<$PrismaModel> | null
+    hasEvery?: number[] | ListIntFieldRefInput<$PrismaModel>
+    hasSome?: number[] | ListIntFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type FavoriteMoviesCountOrderByAggregateInput = {
+    id?: SortOrder
+    movie_ids?: SortOrder
+  }
+
+  export type FavoriteMoviesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    movie_ids?: SortOrder
+  }
+
+  export type FavoriteMoviesMaxOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type FavoriteMoviesMinOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type FavoriteMoviesSumOrderByAggregateInput = {
+    id?: SortOrder
+    movie_ids?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2219,6 +3410,15 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type FavoriteMoviesCreatemovie_idsInput = {
+    set: number[]
+  }
+
+  export type FavoriteMoviesUpdatemovie_idsInput = {
+    set?: number[]
+    push?: number | number[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
