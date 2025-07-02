@@ -26,7 +26,7 @@ const Header: FC<HeaderProps> = ( ) => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/">Favorites</Link>
+            <Link href="/favorites">Favorites</Link>
           </li>
           <li>
             <Link href="/movies/about">About</Link>

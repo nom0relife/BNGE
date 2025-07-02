@@ -15,11 +15,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
 import { setFavoriteMovies, setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
 import { updateFavorites } from '@/app/api/favorites/helpers';
+import { Movie } from '@/app/movies/lib/fetchMovies';
 
 const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
-  const favoriteMoviesIds = useSelector((state:RootState) =>
+  const favoriteMovies = useSelector((state:RootState) =>
     state.movies.favoriteMovies);
-  const isFavorite = movie?.id ? favoriteMoviesIds.includes(movie.id) : false;
+  const isFavorite = movie?.id ? favoriteMovies.includes(movie) : false;
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
@@ -27,21 +28,17 @@ const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
     router.back();
   });
   const handleHeartClick = async () => {
-    let newFavoriteMoviesIds : number[] = [];
-    if( movie !== null && !favoriteMoviesIds.includes(movie.id)) {
-      newFavoriteMoviesIds = [...favoriteMoviesIds, movie.id];
-      dispatch(setFavoriteMovies(movie.id));
+    let newFavoriteMovies : Movie[] = [];
+    if( movie !== null && !favoriteMovies.some(favMovie => favMovie.id !== movie.id)) {
+      newFavoriteMovies = [...favoriteMovies, movie];
+      dispatch(setFavoriteMovies(movie));
     }
-    if( movie !== null && favoriteMoviesIds.includes(movie.id)) {
-      newFavoriteMoviesIds = favoriteMoviesIds.filter(id => id !== movie.id);
-      dispatch(setFavoriteMoviesArray(favoriteMoviesIds.filter(id => id !== movie.id)));
+    if( movie !== null && favoriteMovies.some(favMovie => favMovie.id === movie.id)) {
+      newFavoriteMovies = favoriteMovies.filter(favMovie => favMovie.id !== movie.id);
+      dispatch(setFavoriteMoviesArray(favoriteMovies.filter(favMovie => favMovie.id  !== movie.id)));
     }
-    try {
-      await updateFavorites(newFavoriteMoviesIds);
-    } catch (error) {
-      console.error('api didnt respond well:',  error);
-    }
-
+    updateFavorites(newFavoriteMovies).catch(error =>
+      console.error('api error:',  error));
   };
 
   // If movie is null, show loading state

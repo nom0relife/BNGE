@@ -8,11 +8,12 @@ import { useSearchParams } from 'next/navigation';
 import { getFavorites } from '@/app/api/favorites/helpers';
 import { setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
 import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/app/redux/store';
 
 const Home = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get('search') || '';
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     // This acts like "onEnter"

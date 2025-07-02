@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Movie } from '@/app/movies/lib/fetchMovies';
 
 interface movieState {
-    favoriteMovies: number[];
+    favoriteMovies: Movie[];
 }
 
 const initialState: movieState = {
@@ -14,12 +15,12 @@ const movieStateSlice = createSlice({
   reducers: {
     setFavoriteMovies(
       state,
-      action: PayloadAction<number>) {
+      action: PayloadAction<Movie>) {
       state.favoriteMovies.push(action.payload);
     },
     setFavoriteMoviesArray(
       state,
-      action: PayloadAction<number[]>) {
+      action: PayloadAction<Movie[]>) {
       state.favoriteMovies = action.payload;
     },
     clearFavoriteMovies(state) {

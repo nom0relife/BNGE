@@ -1,11 +1,13 @@
-export const updateFavorites = async (movieIds: number[]) => {
+import { Movie } from '@/app/movies/lib/fetchMovies';
+
+export const updateFavorites = async (movies: Movie[]) => {
   try {
     const response = await fetch('/api/favorites', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ movieIds }),
+      body: JSON.stringify({ movies }),
     });
 
     if (!response.ok) {
@@ -19,7 +21,7 @@ export const updateFavorites = async (movieIds: number[]) => {
   }
 };
 
-export const getFavorites = async (): Promise<number[]> => {
+export const getFavorites = async (): Promise<Movie[]> => {
   try {
     const response = await fetch('/api/favorites', {
       method: 'GET',
