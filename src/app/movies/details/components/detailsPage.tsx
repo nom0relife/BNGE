@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { singleMovie } from '@/app/movies/lib/fetchMovie';
 import { useRouter } from 'next/navigation';
 import {
@@ -14,6 +14,7 @@ import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
 import { setFavoriteMovies, setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
+import { updateFavorites } from '@/app/api/favorites/helpers';
 
 const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
   const favoriteMoviesIds = useSelector((state:RootState) =>
@@ -25,13 +26,22 @@ const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
   useClickOutside(ref, () => {
     router.back();
   });
-  const handleHeartClick = () => {
+  const handleHeartClick = async () => {
+    let newFavoriteMoviesIds : number[] = [];
     if( movie !== null && !favoriteMoviesIds.includes(movie.id)) {
+      newFavoriteMoviesIds = [...favoriteMoviesIds, movie.id];
       dispatch(setFavoriteMovies(movie.id));
     }
     if( movie !== null && favoriteMoviesIds.includes(movie.id)) {
+      newFavoriteMoviesIds = favoriteMoviesIds.filter(id => id !== movie.id);
       dispatch(setFavoriteMoviesArray(favoriteMoviesIds.filter(id => id !== movie.id)));
     }
+    try {
+      await updateFavorites(newFavoriteMoviesIds);
+    } catch (error) {
+      console.error('api didnt respond well:',  error);
+    }
+
   };
 
   // If movie is null, show loading state

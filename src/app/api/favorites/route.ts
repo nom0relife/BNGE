@@ -5,6 +5,10 @@ import { prisma } from '@/lib/prisma';
 export async function GET() {
   try {
     const row = await prisma.favoriteMovies.findUnique({ where: { id: 1 } });
+    if (!row){
+      console.log(row);
+      console.log('No favorite movies found, returning empty array.');
+    }
     return NextResponse.json({ movieIds: row?.movie_ids || [] });
   } catch (error) {
     console.error('Error fetching favorite movies:', error);
