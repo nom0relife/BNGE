@@ -1,4 +1,6 @@
-const DefaultPage: React.FC = () => {
+import { FC } from 'react';
+
+const DefaultPage: FC = () => {
   return (
     <div className="default-page">
       <h1 className="text-2xl font-bold mb-4">Welcome to Binger!</h1>

@@ -1,4 +1,11 @@
-import { useEffect, RefObject } from 'react';
+import { useEffect, RefObject, Dispatch } from 'react';
+import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { Movie } from '@/app/movies/lib/fetchMovies';
+import {
+  setFavoriteMovies,
+  setFavoriteMoviesArray
+} from '@/app/movies/reducers/movieStateReducer';
+import { updateFavorites } from '@/app/api/favorites/helpers';
 
 /**
  * Utility function to round a number to two decimal places.
@@ -28,3 +35,39 @@ export function useClickOutside(ref: RefObject<HTMLElement | null>, callback: ()
     };
   }, [ref, callback]);
 }
+
+/**
+ * function that calculates if a movie is a favorite or not.
+ */
+export const isFavorite = (
+  movie: Movie,
+  favoriteMovies: SingleMovie[]
+) => {
+  return movie?.id ? favoriteMovies.some(fav => fav.id === movie.id) : false;
+};
+
+/**
+ * Handles the heart click event to add or remove a movie from favorites.
+ * @param movie
+ * @param favoriteMovies
+ * @param dispatch
+ */
+export const handleHeartClickFn = async (
+  movie: Movie,
+  favoriteMovies: SingleMovie[],
+  dispatch: Dispatch<{ type: string;
+    payload: SingleMovie | SingleMovie[] }>) => {
+
+  let newFavoriteMovies : SingleMovie[] = [];
+  if( movie !== null && !favoriteMovies.some(favMovie => favMovie.id === movie.id)) {
+    newFavoriteMovies = [...favoriteMovies, movie as SingleMovie];
+    dispatch(setFavoriteMovies(movie as SingleMovie));
+  }
+  if( movie !== null && favoriteMovies.some(favMovie => favMovie.id === movie.id)) {
+    newFavoriteMovies = favoriteMovies.filter(favMovie => favMovie.id !== movie.id);
+    dispatch(setFavoriteMoviesArray(favoriteMovies.filter(favMovie => favMovie.id  !== movie.id)));
+  }
+  updateFavorites(newFavoriteMovies).catch(error =>
+    console.error('api error:',  error));
+};
+

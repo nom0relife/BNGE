@@ -32,3 +32,10 @@ export const routePaths = {
   PROFILE: '/profile',
   SETTINGS: '/settings',
 };
+
+export const categories = [
+  { key: 'movies', label: 'Movies' },
+  { key: 'music', label: 'Music' },
+  { key: 'books', label: 'Books' },
+  { key: 'games', label: 'Games' }
+];

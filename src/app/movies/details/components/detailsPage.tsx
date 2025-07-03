@@ -1,45 +1,32 @@
 'use client';
-import React, { FC, useEffect, useRef } from 'react';
-import { singleMovie } from '@/app/movies/lib/fetchMovie';
+import React, { FC, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   TMDB_IMAGE_BASE_URL,
   TMDB_IMAGE_BASE_URL_POSTER
 } from '@/app/common/constants';
-import { useClickOutside } from '@/app/movies/utils/utils';
+import {
+  handleHeartClickFn,
+  isFavorite,
+  useClickOutside
+} from '@/app/movies/utils/utils';
 import Loading from '@/app/core/components/loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as faHeartRegular  } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
-import { setFavoriteMovies, setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
-import { updateFavorites } from '@/app/api/favorites/helpers';
-import { Movie } from '@/app/movies/lib/fetchMovies';
+import { SingleMovie } from '@/app/core/interfaces/interfaces';
 
-const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
+const DetailsPage: FC<{ movie: SingleMovie | null }> = ({ movie }) => {
   const favoriteMovies = useSelector((state:RootState) =>
     state.movies.favoriteMovies);
-  const isFavorite = movie?.id ? favoriteMovies.includes(movie) : false;
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => {
     router.back();
   });
-  const handleHeartClick = async () => {
-    let newFavoriteMovies : Movie[] = [];
-    if( movie !== null && !favoriteMovies.some(favMovie => favMovie.id !== movie.id)) {
-      newFavoriteMovies = [...favoriteMovies, movie];
-      dispatch(setFavoriteMovies(movie));
-    }
-    if( movie !== null && favoriteMovies.some(favMovie => favMovie.id === movie.id)) {
-      newFavoriteMovies = favoriteMovies.filter(favMovie => favMovie.id !== movie.id);
-      dispatch(setFavoriteMoviesArray(favoriteMovies.filter(favMovie => favMovie.id  !== movie.id)));
-    }
-    updateFavorites(newFavoriteMovies).catch(error =>
-      console.error('api error:',  error));
-  };
 
   // If movie is null, show loading state
   if (!movie) {return <Loading />;}
@@ -180,9 +167,9 @@ const DetailsPage: FC<{ movie: singleMovie | null }> = ({ movie }) => {
             </span>
           </div>
         </div>
-        <button onClick={handleHeartClick} className="hover:cursor-pointer">
+        <button onClick={() => handleHeartClickFn(movie, favoriteMovies, dispatch)} className="hover:cursor-pointer">
           <div className="absolute top-2 right-3 z-10 text-[#fe4141] text-xl">
-            {!isFavorite
+            {!isFavorite(movie, favoriteMovies)
               ? <FontAwesomeIcon icon={faHeartRegular} />
               : <FontAwesomeIcon icon={faHeartSolid}  />
             }

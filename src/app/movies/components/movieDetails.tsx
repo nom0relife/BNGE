@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
 
 const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
-  const favoriteMoviesIds = useSelector((state:RootState) =>
+  const favoriteMovies = useSelector((state:RootState) =>
     state.movies.favoriteMovies);
   const filteredMovies = movies.filter((movie: Movie) => {
     if (movie.popularity > 1 && movie.original_language === 'en') {
@@ -20,7 +20,11 @@ const MovieList: FC<{ movies: Movie[] }> = ({ movies }) => {
      lg:grid-cols-4 gap-6 p-4">
       {filteredMovies.map((movie: Movie) => (
         <React.Fragment key={movie.id}>
-          <MovieCard movie={movie} key={movie.id} favoriteMoviesIds={favoriteMoviesIds} />
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            favoriteMovies={favoriteMovies}
+          />
         </React.Fragment>
       ))}
     </div>

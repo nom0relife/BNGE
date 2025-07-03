@@ -1,6 +1,6 @@
-import { Movie } from '@/app/movies/lib/fetchMovies';
+import { SingleMovie } from '@/app/core/interfaces/interfaces';
 
-export const updateFavorites = async (movies: Movie[]) => {
+export const updateFavorites = async (movies: SingleMovie[]) => {
   try {
     const response = await fetch('/api/favorites', {
       method: 'PUT',
@@ -21,7 +21,7 @@ export const updateFavorites = async (movies: Movie[]) => {
   }
 };
 
-export const getFavorites = async (): Promise<Movie[]> => {
+export const getFavorites = async (): Promise<SingleMovie[]> => {
   try {
     const response = await fetch('/api/favorites', {
       method: 'GET',
@@ -36,7 +36,7 @@ export const getFavorites = async (): Promise<Movie[]> => {
       throw new Error(err.error || 'Unknown error');
     }
     const data = await response.json();
-    return data.movieIds ?? [];
+    return data.movies ?? [];
   } catch (err) {
     console.error('Failed to fetch favorites:', err);
     return [];
