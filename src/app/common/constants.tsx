@@ -22,20 +22,7 @@ export const routePaths = {
   HOME: '/',
   MOVIES: '/movies',
   MOVIE_DETAILS: '/movies/details',
-  FAVORITES: '/public',
-  ABOUT: '/about',
+  FAVORITES: '/favorites',
+  ABOUT: '/movies/about',
   CONTACT: '/contact',
-  NOT_FOUND: '/404',
-  SERVER_ERROR: '/500',
-  LOGIN: '/login',
-  REGISTER: '/register',
-  PROFILE: '/profile',
-  SETTINGS: '/settings',
 };
-
-export const categories = [
-  { key: 'movies', label: 'Movies' },
-  { key: 'music', label: 'Music' },
-  { key: 'books', label: 'Books' },
-  { key: 'games', label: 'Games' }
-];

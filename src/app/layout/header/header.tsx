@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchBar from '@/app/core/SearchBar';
-import { SITE_TITLE } from '@/app/common/constants';
+import { routePaths, SITE_TITLE } from '@/app/common/constants';
 
 const Header: FC<HeaderProps> = ( ) => {
   return (
@@ -23,13 +23,13 @@ const Header: FC<HeaderProps> = ( ) => {
       <nav>
         <ul className="flex space-x-4">
           <li>
-            <Link href="/">Home</Link>
+            <Link href={routePaths.FAVORITES}>Home</Link>
           </li>
           <li>
-            <Link href="/favorites">Favorites</Link>
+            <Link href={routePaths.FAVORITES}>Favorites</Link>
           </li>
           <li>
-            <Link href="/movies/about">About</Link>
+            <Link href={routePaths.ABOUT}>About</Link>
           </li>
           <li>
             <Link href="/">Contact</Link>

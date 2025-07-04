@@ -1,14 +1,28 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '@/app/layout/footer/footer';
 import Header from '@/app/layout/header/header';
 import FavoritesPage from './components/favoritesPage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
+import { getFavorites } from '@/app/api/favorites/helpers';
+import { setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
+import Loading from '@/app/core/components/loading';
 
 const Favorites = () => {
   const favoriteMovies = useSelector((state: RootState) => state.movies.favoriteMovies);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // This acts like "onEnter"
+    async function loadFavorites() {
+      const favorites = await getFavorites();
+      dispatch(setFavoriteMoviesArray(favorites));
+    }
+    loadFavorites().catch((err) =>
+      console.error('failed to load favorites', err));
+  }, []);
 
+  if (!favoriteMovies) {return <Loading />;}
   return (
     <React.Fragment>
       <Header />
