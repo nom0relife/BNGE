@@ -25,4 +25,6 @@ export const routePaths = {
   FAVORITES: '/favorites',
   ABOUT: '/movies/about',
   CONTACT: '/contact',
+  LOGIN:'/authentication/login',
+  REGISTER:'/authentication/register',
 };

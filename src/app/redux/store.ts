@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import uiStateReducer from './slices/uiState';
-import movieStateReducer from '@/app/movies/reducers/movieStateReducer';
+import movieStateReducer from '@/app/(protected)/movies/reducers/movieStateReducer';
 
 export const store = configureStore({
   reducer: {

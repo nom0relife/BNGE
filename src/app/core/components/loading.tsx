@@ -1,4 +1,4 @@
-// /app/loading.tsx or /app/movies/loading.tsx
+// /app/loading.tsx or /app/(protected)/movies/loading.tsx
 import React from 'react';
 
 export default function Loading() {

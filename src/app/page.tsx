@@ -1,42 +1,17 @@
-'use client';
-import React, { useEffect } from 'react';
-import Footer from '@/app/layout/footer/footer';
-import Header from '@/app/layout/header/header';
-import MovieDetails from '@/app/movies/components/movieDetails';
-import DefaultPage from '@/app/movies/components/defaultPage';
-import { useSearchParams } from 'next/navigation';
-import { getFavorites } from '@/app/api/favorites/helpers';
-import { setFavoriteMoviesArray } from '@/app/movies/reducers/movieStateReducer';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/app/redux/store';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
+import Home from '@/app/core/components/home';
+import { routePaths } from '@/app/common/constants';
 
-const Home = () => {
-  const searchParams = useSearchParams();
-  const query = searchParams.get('search') || '';
-  const dispatch = useDispatch<AppDispatch>();
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect(routePaths.LOGIN);
+  }
+  const user = session?.user;
+  console.log('Session user:', user);
 
-  useEffect(() => {
-    // This acts like "onEnter"
-    async function loadFavorites() {
-      const favorites = await getFavorites();
-      dispatch(setFavoriteMoviesArray(favorites));
-    }
-    loadFavorites().catch((err) =>
-      console.error('failed to load favorites', err));
-  }, []);
-
-  return (
-    <React.Fragment>
-      <Header />
-      <main className="flex-grow p-4">
-        {query !== '' ? (
-          <MovieDetails query={query} />)
-          : <DefaultPage />
-        }
-      </main>
-      <Footer />
-    </React.Fragment>
-  );
-};
-
-export default Home;
+  // Pass session info if you want (optional)
+  return <Home user={user} />;
+}
