@@ -71,3 +71,16 @@ export const handleHeartClickFn = async (
     console.error('api error:',  error));
 };
 
+/**
+ * Removes a movie from the favorites list.
+ */
+export const removeFavoriteMovie = (
+  movies: SingleMovie[],
+  movie:SingleMovie,
+  dispatch: Dispatch<{ type: string; payload: SingleMovie[] }>,
+) => {
+  const moviesToUpdate =  movies.filter(favMovie => favMovie.id !== movie.id);
+  updateFavorites(moviesToUpdate).catch(error =>
+    console.error('api error:',  error));
+  dispatch(setFavoriteMoviesArray(moviesToUpdate));
+};
