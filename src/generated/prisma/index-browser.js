@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.10.1
- * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+ * Prisma Client JS version: 6.11.0
+ * Query Engine version: 9c30299f5a0ea26a96790e13f796dc6094db3173
  */
 Prisma.prismaVersion = {
-  client: "6.10.1",
-  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
+  client: "6.11.0",
+  engine: "9c30299f5a0ea26a96790e13f796dc6094db3173"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -127,6 +127,11 @@ exports.Prisma.UserScalarFieldEnum = {
   phone: 'phone'
 };
 
+exports.Prisma.FavoriteMoviesScalarFieldEnum = {
+  id: 'id',
+  movie_ids: 'movie_ids'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -144,7 +149,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  FavoriteMovies: 'FavoriteMovies'
 };
 
 /**

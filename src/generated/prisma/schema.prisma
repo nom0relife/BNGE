@@ -21,3 +21,8 @@ model User {
   phone    String?
   // add other fields as needed
 }
+
+model FavoriteMovies {
+  id        Int   @id @default(autoincrement())
+  movie_ids Int[]
+}
