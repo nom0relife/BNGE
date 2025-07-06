@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { Movie } from '@/app/movies/lib/fetchMovies';
+import { Movie } from '@/app/(protected)/movies/lib/fetchMovies';
 
 // Always fetch the row with id: 1
 export async function GET() {
