@@ -23,7 +23,7 @@ export const routePaths = {
   MOVIES: '/movies',
   MOVIE_DETAILS: '/movies/details',
   FAVORITES: '/favorites',
-  ABOUT: '/movies/about',
+  ABOUT: '/about',
   CONTACT: '/contact',
   LOGIN:'/authentication/login',
   REGISTER:'/authentication/register',

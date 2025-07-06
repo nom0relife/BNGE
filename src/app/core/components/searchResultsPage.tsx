@@ -9,11 +9,7 @@ export const SearchResultsPage = () => {
   const query = searchParams.get('search') || '';
   return (
     <div>
-      <div className="bg-gray-900 py-4 flex justify-center w-full shadow">
-        <div className="w-full max-w-xl flex justify-center">
-          <SearchBar />
-        </div>
-      </div>
+      <SearchBar />
       {query !== '' ? (
         <MovieDetails query={query} />)
         : <DefaultPage />
