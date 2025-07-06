@@ -9,10 +9,9 @@ import { Session } from 'next-auth';
 const Header:FC<{user?:Session['user']}>= ({ user }) => {
   return (
     <Fragment>
-      {/* Search Bar */}
-      {/* Navbar */}
-      <header className="bg-gray-800 text-white px-8 py-3 flex items-center justify-between w-full shadow-md">
-        {/* Left: Logo and Site Title */}
+      <header className="bg-gray-800 text-white px-8
+      py-3 flex items-center
+       justify-between w-full shadow-md">
         <div className="flex items-center">
           <Image
             src="/siteLogo.png"

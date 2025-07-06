@@ -14,21 +14,24 @@ datasource db {
 }
 
 model FavoriteMovies {
-  id    Int  @id @default(autoincrement())
-  movie Json // Add this line
+  id    Int    @id @default(autoincrement())
+  movie Json // Movie data
+  users User[] @relation("UserFavorites")
 }
 
 model User {
-  id       String    @id @default(cuid())
-  email    String    @unique
-  password String
-  sessions Session[]
-  accounts Account[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String           @unique
+  password       String
+  sessions       Session[]
+  accounts       Account[]
+  favoriteMovies FavoriteMovies[] @relation("UserFavorites")
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
+  id                Int     @id @default(autoincrement())
+  userId            Int
   type              String
   provider          String
   providerAccountId String
@@ -43,9 +46,9 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           Int      @id @default(autoincrement())
   sessionToken String   @unique
-  userId       String
+  userId       Int
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id])
 }

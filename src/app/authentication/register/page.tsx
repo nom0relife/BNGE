@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { routePaths } from '@/app/common/constants';
 
 export default function SignupPage() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -24,7 +25,7 @@ export default function SignupPage() {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
     });
 
     const data = await res.json();
@@ -43,6 +44,14 @@ export default function SignupPage() {
         className="w-full max-w-sm p-8 space-y-4 bg-white rounded shadow"
       >
         <h1 className="text-2xl font-bold">Sign Up</h1>
+        <input
+          type="text"
+          placeholder="name"
+          className="w-full p-2 border rounded"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
         <input
           type="email"
           placeholder="Email"

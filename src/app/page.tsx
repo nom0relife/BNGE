@@ -10,7 +10,6 @@ export default async function Page() {
     redirect(routePaths.LOGIN);
   }
   const user = session?.user;
-  console.log('Session user:', user);
 
   // Pass session info if you want (optional)
   return <Home user={user} />;

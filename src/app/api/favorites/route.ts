@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { Movie } from '@/app/(protected)/movies/lib/fetchMovies';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth/next';
 
-// Always fetch the row with id: 1
+// This route handles favorite movies for the authenticated user.
+// It allows fetching the list of favorite movies and updating them.
+// GET: Fetch favorite movies
+// PUT: Update favorite movies
 export async function GET() {
   try {
-    const row = await prisma.favoriteMovies.findUnique({ where: { id: 1 } });
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.id;
+    const row = await prisma.favoriteMovies.findUnique({ where: { id: userId } });
     // Return [] if row or movie is missing
     return NextResponse.json({ movies: (row?.movie as any[]) || [] });
   } catch (error) {
@@ -14,24 +20,26 @@ export async function GET() {
   }
 }
 
-// Always insert/update row with id: 1
+// This route updates the favorite movies for the authenticated user.
+// It expects an array of movie objects in the request body.
+// If the user does not have a row in the database, it creates one.
 export async function PUT(req: NextRequest) {
   try {
     const { movies } = await req.json();
+    const session = await getServerSession(authOptions);
+    const userId = session?.user?.id;
 
     // Validate input
     if (!Array.isArray(movies) || !movies.every(obj => typeof obj === 'object' && obj !== null)) {
       return NextResponse.json({ error: 'movies must be an array of objects.' }, { status: 400 });
     }
 
-    const row = await prisma.favoriteMovies.findUnique({ where: { id: 1 } });
+    const row = await prisma.favoriteMovies.findUnique({ where: { id: userId } });
     if (!row) {
-      // Create the row with id: 1 if it doesn't exist
-      await prisma.favoriteMovies.create({ data: { id: 1, movie: movies } });
+      await prisma.favoriteMovies.create({ data: { id: userId, movie: movies } });
     } else {
-      // Update the row with id: 1
       await prisma.favoriteMovies.update({
-        where: { id: 1 },
+        where: { id: userId },
         data: { movie: movies },
       });
     }

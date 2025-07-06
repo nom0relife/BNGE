@@ -9,7 +9,6 @@ export const updateFavorites = async (movies: SingleMovie[]) => {
       },
       body: JSON.stringify({ movies }),
     });
-
     if (!response.ok) {
       // Optionally handle error, e.g., show a toast notification
       const err = await response.json();
@@ -29,7 +28,6 @@ export const getFavorites = async (): Promise<SingleMovie[]> => {
         'Content-Type': 'application/json',
       },
     });
-
     if (!response.ok) {
       // Optionally handle error, e.g., show a toast notification
       const err = await response.json();

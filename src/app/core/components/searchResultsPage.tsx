@@ -9,7 +9,6 @@ export const SearchResultsPage = () => {
   const query = searchParams.get('search') || '';
   return (
     <div>
-      {/* Search Bar Below Navbar */}
       <div className="bg-gray-900 py-4 flex justify-center w-full shadow">
         <div className="w-full max-w-xl flex justify-center">
           <SearchBar />
