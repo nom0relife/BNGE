@@ -5,7 +5,7 @@ import {
   setFavoriteMovies,
   setFavoriteMoviesArray
 } from '@/app/(protected)/movies/reducers/movieStateReducer';
-import { updateFavorites } from '@/app/api/favorites/helpers';
+import { updateFavorites } from '@/app/api/favorites/movies/helpers';
 
 /**
  * Utility function to round a number to two decimal places.

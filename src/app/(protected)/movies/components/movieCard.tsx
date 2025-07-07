@@ -57,7 +57,7 @@ const MovieCard: FC<{ movie: Movie, favoriteMovies: SingleMovie[] }> = ({
         {/* Movie Image */}
         <div className="relative h-64 w-full overflow-hidden">
           <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+            src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}` : '/no-image.jpg'}
             alt={movie.title}
             className="w-full h-full object-cover rounded-t mask-image"
             style={{

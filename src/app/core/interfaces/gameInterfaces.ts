@@ -38,6 +38,7 @@ export interface Game {
     updated: string; // ISO datetime
     esrb_rating?: EsrbRating;
     platforms: PlatformInfo[];
+    genres: { id: number; name: string; slug: string }[];
 }
 
 export interface EsrbRating {

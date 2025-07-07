@@ -1,13 +1,13 @@
-import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
+import { Game } from '@/app/core/interfaces/gameInterfaces';
 
-export const updateFavorites = async (movies: SingleMovie[]) => {
+export const updateFavoriteGames = async (games: Game[]) => {
   try {
-    const response = await fetch('/api/favorites', {
+    const response = await fetch('/api/favorites/games', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ movies }),
+      body: JSON.stringify({ games }),
     });
     if (!response.ok) {
       // Optionally handle error, e.g., show a toast notification
@@ -20,9 +20,9 @@ export const updateFavorites = async (movies: SingleMovie[]) => {
   }
 };
 
-export const getFavorites = async (): Promise<SingleMovie[]> => {
+export const getFavoriteGames = async (): Promise<Game[]> => {
   try {
-    const response = await fetch('/api/favorites', {
+    const response = await fetch('/api/favorites/games', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const getFavorites = async (): Promise<SingleMovie[]> => {
       throw new Error(err.error || 'Unknown error');
     }
     const data = await response.json();
-    return data.movies ?? [];
+    return data.games ?? [];
   } catch (err) {
     console.error('Failed to fetch favorites:', err);
     return [];

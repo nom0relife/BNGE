@@ -2,7 +2,7 @@
 import React, { FC, Fragment, useEffect } from 'react';
 import Footer from '@/app/(protected)/layout/footer/footer';
 import Header from '@/app/(protected)/layout/header/header';
-import { getFavorites } from '@/app/api/favorites/helpers';
+import { getFavorites } from '@/app/api/favorites/movies/helpers';
 import {
   setFavoriteMoviesArray
 } from '@/app/(protected)/movies/reducers/movieStateReducer';

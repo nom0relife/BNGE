@@ -1,16 +1,15 @@
-import Link from 'next/link';
-import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 import React, { FC } from 'react';
-import { removeFavoriteMovie } from '@/app/(protected)/movies/utils/utils';
 import { useDispatch } from 'react-redux';
+import { Game } from '@/app/core/interfaces/gameInterfaces';
+import { removeFavoriteGame } from '@/app/(protected)/games/utils/utils';
 
-export const FavoriteMovieCardComponent: FC<{ movies: SingleMovie[] }> = ({ movies }) => {
+export const FavoriteGameCardComponent: FC<{ games: Game[] }> = ({ games }) => {
   const dispatch = useDispatch();
   return (
     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {movies?.map((movie: SingleMovie) => (
+      {games?.map((game: Game) => (
         <div
-          key={movie.id}
+          key={game.id}
           className="relative min-h-[288px] rounded-2xl shadow-lg bg-[#27213d] p-4
                     flex flex-col items-center overflow-hidden"
         >
@@ -23,24 +22,23 @@ export const FavoriteMovieCardComponent: FC<{ movies: SingleMovie[] }> = ({ movi
               hover:bg-red-700 transition shadow-lg opacity-80 hover:opacity-100"
             tabIndex={-1}
             aria-label="Remove favorite"
-            onClick={() => {removeFavoriteMovie(movies, movie, dispatch);}}
+            onClick={() => {removeFavoriteGame(games, game, dispatch);}}
           >
                 ×
           </button>
-          <Link
-            href={`/movies/details/${movie.id}`}
+          <div
             className="flex flex-col items-center w-full h-full"
             tabIndex={0}
           >
-            {movie.backdrop_path && (
+            {game.background_image && (
               <img
-                src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-                alt={movie.title || movie.backdrop_path}
+                src={game.background_image}
+                alt={game.name || game.background_image}
                 className="w-32 h-44 object-cover rounded-xl mb-2"
               />
             )}
-            <span className="text-lg font-medium text-white text-center mt-2">{movie.title}</span>
-          </Link>
+            <span className="text-lg font-medium text-white text-center mt-2">{game.name}</span>
+          </div>
         </div>
       ))}
     </div>

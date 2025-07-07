@@ -20,7 +20,7 @@ export default function Loading() {
           <rect x="56" y="21" width="1.5" height="1.5" fill="#f1e5fe" />
         </svg>
       </div>
-      <span className="mt-5 text-2xl font-bold text-white tracking-wide font-mono">Loading Binger...</span>
+      <span className="mt-5 text-2xl font-bold text-white tracking-wide font-mono">Loading BNGE...</span>
 
       <style>
         {`

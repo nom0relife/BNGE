@@ -3,14 +3,18 @@ import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
+import { FavoriteMovieCardComponent } from '@/app/(protected)/favorites/components/favoriteMovieCardComponent';
+import { Game } from '@/app/core/interfaces/gameInterfaces';
 import {
-  FavoriteMovieCardComponent
-} from '@/app/(protected)/favorites/components/favoriteMovieCardComponent';
+  FavoriteGameCardComponent
+} from '@/app/(protected)/favorites/components/favoriteGameCardComponent';
 
 const FavoritesPage: FC<{
-  movies: SingleMovie[]
+  movies: SingleMovie[],
+  games: Game[]
 }> = ({
-  movies
+  movies,
+  games
 }) => {
   return (
     <div className="min-h-screen bg-[#1e1b26] flex flex-col items-center px-4 pt-10">
@@ -32,8 +36,12 @@ const FavoritesPage: FC<{
           <div className="text-gray-400 italic">No favorites in this category yet.</div>
         </section>
         <section className="mb-8">
-          <h2 className="text-2xl text-purple-400 font-semibold mb-3">Games</h2>
-          <div className="text-gray-400 italic">No favorites in this category yet.</div>
+          <h2 className="text-2xl text-purple-400 font-semibold mb-3">Movies</h2>
+          {/* Show movies only for 'games' category, empty for others */}
+          {
+            games.length ? (<FavoriteGameCardComponent games={games} />) : (
+              <div className="text-gray-400 italic">No favorites in this category yet.</div>
+            )}
         </section>
         <section className="mb-8">
           <h2 className="text-2xl text-purple-400 font-semibold mb-3">Books</h2>

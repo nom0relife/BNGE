@@ -8,14 +8,14 @@ import Loading from '@/app/core/components/loading';
 
 export const MovieList: FC<{ query: string }> = ({ query }) => {
   const { data: movies = [], error, isLoading } = useSWR(query, fetchMovies, {
-    revalidateOnFocus: false,
+    revalidateOnFocus: true,
     revalidateOnReconnect: false,
     // ...any other options
   });
   const favoriteMovies = useSelector((state:RootState) =>
     state.movies.favoriteMovies);
   const filteredMovies = movies.filter((movie: Movie) => {
-    if (movie.popularity > 1 && movie.original_language === 'en') {
+    if (movie.popularity > 1) {
       return movie;
     }
   });
