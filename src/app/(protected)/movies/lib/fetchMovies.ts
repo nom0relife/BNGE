@@ -1,4 +1,4 @@
-import mainApi from '@/app/apis/movieApi';
+import movieApi from '@/app/apis/movieApi';
 import { APPLICATION_ACCEPT_TO_JSON } from '@/app/common/constants';
 
 export interface Movie {
@@ -15,7 +15,7 @@ export interface Movie {
 
 async function fetchMovies(query: string): Promise<Movie[]> {
   try {
-    const res = await fetch(mainApi.fetchMovies(query), {
+    const res = await fetch(movieApi.fetchMovies(query), {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN}`,
         accept: APPLICATION_ACCEPT_TO_JSON,

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import { useRouter } from 'next/navigation';
 import { routePaths } from '@/app/common/constants';
-import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/redux/store';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';

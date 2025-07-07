@@ -1,13 +1,22 @@
 'use client';
 import '@/app/(protected)/movies/styles/searchBar.css';
-import React, { ChangeEvent, useMemo, useEffect } from 'react';
+import React, { ChangeEvent, useMemo, useEffect, FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/app/redux/store';
 import { setQuery } from '@/app/redux/slices/uiState';
 import debounce from 'lodash/debounce';
+import { MediaType } from '@/app/common/constants';
 
-const SearchBar = () => {
+
+
+const SearchBar: FC<{
+  selectedType: string,
+  setSelectedType: React.Dispatch<React.SetStateAction<MediaType>>
+}> = ({
+  selectedType,
+  setSelectedType
+}) => {
   const query = useSelector((state: RootState) => state.uiState.query);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
@@ -29,12 +38,19 @@ const SearchBar = () => {
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     dispatch(setQuery(value));    // Input updates instantly (Redux)
-    debouncedNavigate(value);     // Navigation happens after 400ms pause
+    if(selectedType === 'movies'){
+      debouncedNavigate(value);  // Navigation happens after 400ms pause
+    }
   };
 
   // For immediate search on Enter or button
   const handleImmediateSearch = () => {
-    router.push(`/?search=${encodeURIComponent(query)}`);
+    if(selectedType === 'movies') {
+      router.push(`/?search=${encodeURIComponent(query)}`);
+    }
+    if(selectedType === 'games') {
+      router.push(`/?search=${encodeURIComponent(query)}`);
+    }
   };
 
   return (
@@ -46,50 +62,75 @@ const SearchBar = () => {
             <button
               type="button"
               aria-label="Movies"
-              className="rounded-full border-2 border-purple-600 bg-[#22273a] text-purple-300 hover:text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-400 shadow w-9 h-9 flex items-center justify-center text-xl transition"
+              onClick={() => setSelectedType('movies')}
+              className={`rounded-full border-2 border-purple-600
+              shadow w-9 h-9 flex items-center justify-center text-xl transition
+              ${selectedType === 'movies'
+      ? 'bg-purple-600 text-white'
+      : 'bg-[#22273a] text-purple-300 hover:text-white hover:bg-purple-700'}`}
             >
                 🎬
             </button>
             <button
               type="button"
               aria-label="Music"
-              className="rounded-full border-2 border-pink-600 bg-[#22273a] text-pink-300 hover:text-white hover:bg-pink-600 focus:ring-2 focus:ring-pink-400 shadow w-9 h-9 flex items-center justify-center text-xl transition"
+              onClick={() => setSelectedType('music')}
+              className={`rounded-full border-2 border-pink-600
+              shadow w-9 h-9 flex items-center justify-center text-xl transition
+              ${selectedType === 'music'
+      ? 'bg-pink-600 text-white'
+      : 'bg-[#22273a] text-pink-300 hover:text-white hover:bg-pink-600'}`}
             >
                 🎵
             </button>
             <button
               type="button"
               aria-label="Games"
-              className="rounded-full border-2 border-blue-500 bg-[#22273a] text-blue-300 hover:text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 shadow w-9 h-9 flex items-center justify-center text-xl transition"
+              onClick={() => setSelectedType('games')}
+              className={`rounded-full border-2 border-blue-500
+              shadow w-9 h-9 flex items-center justify-center text-xl transition
+              ${selectedType === 'games'
+      ? 'bg-blue-600 text-white'
+      : 'bg-[#22273a] text-blue-300 hover:text-white hover:bg-blue-600'}`}
             >
                 🎮
             </button>
+            <button
+              type="button"
+              aria-label="Books"
+              onClick={() => setSelectedType('books')}
+              className={`rounded-full border-2 border-green-600
+              shadow w-9 h-9 flex items-center justify-center text-xl transition
+              ${selectedType === 'books'
+      ? 'bg-green-600 text-white'
+      : 'bg-[#22273a] text-green-300 hover:text-white hover:bg-green-700'}`}
+            >
+                📚
+            </button>
           </div>
+
           {/* Input */}
           <input
             value={query}
             onChange={handleQueryChange}
             placeholder="Search..."
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {handleImmediateSearch();}
+              if (e.key === 'Enter') { handleImmediateSearch(); }
             }}
             className="flex-1 min-w-0 bg-transparent text-gray-200 px-3 py-2 focus:outline-none placeholder-gray-400 mx-3"
             type="text"
           />
+
           {/* Search Button */}
           <button
             onClick={handleImmediateSearch}
-            className="btn-icon-content"
+            className="rounded-full bg-purple-700 hover:bg-purple-800 p-2 ml-1 transition"
+            style={{ lineHeight: 0 }}
           >
-            <i className="search-icon">
-              <svg version="1.1" viewBox="0 0 512 512" className="w-5 h-5">
-                <path
-                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7
-                  376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416
-                  208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-                  fill="#fff"></path>
-              </svg>
-            </i>
+            <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" />
+            </svg>
           </button>
         </div>
       </div>

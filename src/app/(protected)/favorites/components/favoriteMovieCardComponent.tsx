@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {SingleMovie} from '@/app/core/interfaces/interfaces';
+import {SingleMovie} from '@/app/core/interfaces/movieInterfaces';
 import React, {FC} from 'react';
 import {removeFavoriteMovie} from '@/app/(protected)/movies/utils/utils';
 import {useDispatch} from 'react-redux';

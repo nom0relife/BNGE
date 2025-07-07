@@ -28,3 +28,24 @@ export const routePaths = {
   LOGIN:'/authentication/login',
   REGISTER:'/authentication/register',
 };
+
+/**
+ * the media types available in the application.
+ */
+export type MediaType = 'movies' | 'music' | 'games' | 'books';
+
+/**
+ * Constants representing different media types.
+ * These are used to filter or categorize content in the application.
+ */
+export const MEDIA_TYPES = {
+  MOVIES: 'movies' as MediaType,
+  MUSIC: 'music' as MediaType,
+  GAMES: 'games' as MediaType,
+  BOOKS: 'books' as MediaType,
+};
+
+/**
+ * Constant representing the search action.
+ */
+export const SEARCH = 'search';

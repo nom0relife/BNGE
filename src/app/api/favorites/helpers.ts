@@ -1,4 +1,4 @@
-import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 
 export const updateFavorites = async (movies: SingleMovie[]) => {
   try {

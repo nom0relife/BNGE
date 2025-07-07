@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 
 interface movieState {
     favoriteMovies: SingleMovie[];

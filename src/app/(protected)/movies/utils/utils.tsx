@@ -1,5 +1,5 @@
 import { useEffect, RefObject, Dispatch } from 'react';
-import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 import { Movie } from '@/app/(protected)/movies/lib/fetchMovies';
 import {
   setFavoriteMovies,

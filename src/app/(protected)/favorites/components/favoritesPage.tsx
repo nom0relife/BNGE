@@ -2,7 +2,7 @@
 import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 import {
   FavoriteMovieCardComponent
 } from '@/app/(protected)/favorites/components/favoriteMovieCardComponent';

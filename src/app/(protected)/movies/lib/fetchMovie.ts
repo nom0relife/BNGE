@@ -1,10 +1,10 @@
-import mainApi from '@/app/apis/movieApi';
+import movieApi from '@/app/apis/movieApi';
 import { APPLICATION_ACCEPT_TO_JSON } from '@/app/common/constants';
-import { SingleMovie } from '@/app/core/interfaces/interfaces';
+import { SingleMovie } from '@/app/core/interfaces/movieInterfaces';
 
 async function fetchMovie(id: number): Promise<SingleMovie | null> {
   try {
-    const res = await fetch(mainApi.fetchMovieById(id), {
+    const res = await fetch(movieApi.fetchMovieById(id), {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN}`,
         accept: APPLICATION_ACCEPT_TO_JSON,
